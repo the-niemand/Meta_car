@@ -19,9 +19,9 @@ function Header() {
         <ul className='flex font-[500]  max-lg:text-center w-7/12 justify-between mx-auto max-lg:mx-auto max-lg:flex-col max-sm:w-11/12' >
 
           {
-            navs.map((nav) => {
+            navs.map((nav, index) => {
               return (
-                <NavLink onClick={() => { setOpen(false) }} to={nav === "Home" ? "" : `/${nav}`} style={({ isActive }) => isActive ? { color: "#FF4D30" } : null} className='cursor-pointer delay-[200ms] transition-colors ease hover:text-accent py-5 '>{nav}</NavLink>
+                <NavLink key={index} onClick={() => { setOpen(false) }} to={nav === "Home" ? "" : `/${nav}`} style={({ isActive }) => isActive ? { color: "#FF4D30" } : null} className='cursor-pointer delay-[200ms] transition-colors ease hover:text-accent py-5 '>{nav}</NavLink>
               )
             })
           }

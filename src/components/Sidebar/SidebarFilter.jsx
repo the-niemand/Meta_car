@@ -3,7 +3,7 @@ import Price from "./Price";
 import Colors from "./color";
 
 
-const Sidebar = ({ handleChange }) => {
+const Sidebar = () => {
 
      const sidebar = {
           height: '100%',
@@ -22,9 +22,9 @@ const Sidebar = ({ handleChange }) => {
      return (
           <div style={{ width: '20%'}}>
                <section style={sidebar}>
-                    <Category handleChange={handleChange} />
-                    <Price handleChange={handleChange} />
-                    <Colors handleChange={handleChange} />
+                    <Category />
+                    <Price />
+                    <Colors />
                </section>
           </div>
      );

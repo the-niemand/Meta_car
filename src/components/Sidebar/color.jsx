@@ -1,22 +1,31 @@
+import { useContext } from 'react';
+import { FilterContext } from '../../pages/Models';
 
 
 const Input = ({ handleChange, value, title, name, color }) => {
-     return (
-          <label className="sidebar-label-container">
-               <input onChange={handleChange} type="radio" value={value} name={name} />
-               <span className="checkmark" style={{ backgroundColor: color }}></span>
-               {title}
-          </label>
-     );
+  return (
+    <label className="sidebar-label-container">
+      <input onChange={handleChange} type="radio" value={value} name={name} />
+      <span className="checkmark" style={{ backgroundColor: color }}></span>
+      {title}
+    </label>
+  );
 };
 
-const Colors = ({ handleChange }) => {
+const Colors = () => {
+
+  const { filter, setFilter } = useContext(FilterContext);
+  const handleChange = (e) => {
+    const newFilter = { ...filter, color: e.target.value };
+    setFilter(newFilter)
+  }
+
   return (
     <>
       <div>
-        <h2 className="sidebar-title color-title" style={{marginTop: '2rem'}} >Colors</h2>
+        <h2 className="sidebar-title color-title" style={{ marginTop: '2rem' }} >Colors</h2>
         <label className="sidebar-label-container">
-          <input onChange={handleChange} type="radio" value="" name="test1" />
+          <input onChange={handleChange} type="radio" value="all" name="test1" />
           <span className="checkmark all"></span>
           All
         </label>
@@ -66,7 +75,7 @@ const Colors = ({ handleChange }) => {
             type="radio"
             value="white"
             name="test1"
-  
+
           />
           <span
             className="checkmark"

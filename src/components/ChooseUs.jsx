@@ -59,9 +59,9 @@ function ChooseUs() {
                 </div>
 
                 <div className='flex flex-col gap-7 w-[45%] max-lg:w-full max-lg:mt-16'>
-                        {Features.map((item) => {
+                        {Features.map((item , index) => {
                             return(
-                                <Feature img={item.img} title={item.title} dis={item.dis} />
+                                <Feature key={index} img={item.img} title={item.title} dis={item.dis} />
                             )
                         })}
                 </div>

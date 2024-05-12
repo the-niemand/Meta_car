@@ -1,5 +1,7 @@
 
 import './category.css'
+import { useContext } from 'react';
+import { FilterContext } from '../../pages/Models';
 
 const Input = ({ handleChange, value, title, name, color }) => {
      return (
@@ -11,47 +13,52 @@ const Input = ({ handleChange, value, title, name, color }) => {
      );
 };
 
-function Category({ handleChange }) {
+function Category() {
+     const { filter, setFilter } = useContext(FilterContext);
+     const handleChange = (e) => {
+          const newFilter = { ...filter, brand: e.target.value };
+          setFilter(newFilter)
+     }
+
      return (
           <div>
                <h2 className="sidebar-title">Category</h2>
 
                <div>
                     <label className="sidebar-label-container">
-                         <input onChange={handleChange} type="radio" value="" name="test" />
+                         <input onChange={handleChange} type="radio" value="all" name="brand" />
                          <span className="checkmark"></span>All
                     </label>
                     <Input
                          handleChange={handleChange}
-                         value="sneakers"
+                         value="Audi"
                          title="Audi"
-                         name="test"
+                         name="brand"
                     />
                     <Input
                          handleChange={handleChange}
-                         value="flats"
+                         value="BMW"
                          title="BMW"
-                         name="test"
+                         name="brand"
                     />
                     <Input
                          handleChange={handleChange}
-                         value="sandals"
+                         value="Mercedes"
                          title="Mercedes"
-                         name="test"
+                         name="brand"
                     />
                     <Input
                          handleChange={handleChange}
-                         value="heels"
+                         value="Volkswagen"
                          title="Volkswagen"
-                         name="test"
-                         
+                         name="brand"
+
                     />
                     <Input
                          handleChange={handleChange}
-                         value="heels"
+                         value="Other"
                          title="Other"
-                         name="test"
-                         
+                         name="brand"
                     />
                </div>
           </div>
