@@ -3,6 +3,7 @@ import HeroCar from '../assets/HeroImages/HeroTopImg.png';
 import Sidebar from '../components/Sidebar/SidebarFilter';
 import axios from 'axios';
 import Pagination from '../components/Pagination';
+import loadingSpinner from '../assets/loading.gif'
 
 function ModelCard({ index, modelImg, modelName, modelComp, modelTrans, modelP, modelDoor, modelColor, modelMetre }) {
 
@@ -45,6 +46,7 @@ function Models() {
     price: 'all',
     color: 'all'
   });
+  const [loading, setLoading] = useState(false)
 
   const filterValue = { filter, setFilter };
   const [carModels, setCarModels] = useState();
@@ -61,12 +63,15 @@ function Models() {
   useMemo(() => {
     const fetchCars = async () => {
       try {
+        setLoading(true)
         const fetchUrl = `https://meta-car-admin-backend.onrender.com/car/fetchCars`;
         const response = await axios.get(fetchUrl);
         setCarModels(response.data.data);
         setFilteredCarModels(response.data.data);
+        setLoading(false)
       } catch (error) {
         console.log('Error fetching books:', error);
+        setLoading(false)
       }
     };
     fetchCars();
@@ -108,7 +113,7 @@ function Models() {
 
   return (
     <FilterContext.Provider value={filterValue}>
-      <div className='relative z-[4]' >
+      <div className='relative z-[4]'>
         <div className='relative top-[-100px] z-[4] h-[410px] w-[100vw]'>
           <img src={HeroCar} className='h-full object-cover w-full relative z-[2]' alt="" />
           <h1 className='absolute z-[5] top-0 flex flex-col max-lg:text-center justify-center px-[67px] text-black font-[700] text-[38px]  h-full w-full'>
@@ -120,7 +125,14 @@ function Models() {
         <div className='flex items-start justify-center gap-4 w-full p-12'>
           <Sidebar />
           <div className="w-full" style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-evenly", gap: "4rem" }}>
-            {filteredCarModels && (
+            {loading ? (
+              <div className='w-full h-full flex items-center justify-center mt-32'>
+                <div className='w-[180px] h-[180px] bg-white shadow-lg flex items-center justify-center'>
+                  <img src={loadingSpinner} alt="Loading" width={80}  className='p-5'/>
+                </div>
+              </div>
+            ) : (
+              filteredCarModels &&
               filteredCarModels.slice(firstPostIndex, lastPostIndex).map((car, index) => (
                 <ModelCard
                   key={index}
@@ -136,18 +148,17 @@ function Models() {
                 />
               ))
             )}
-            {
-              filteredCarModels && (
-                <div className='w-full flex items-center justify-center'>
-                  <Pagination totalPosts={filteredCarModels.length} postsPerPage={postsperpage} setCurrentPage={setCurrentPage} currentPage={currentPage} />
-                </div>
-              )
-            }
+            {filteredCarModels && (
+              <div className='w-full flex items-center justify-center'>
+                <Pagination totalPosts={filteredCarModels.length} postsPerPage={postsperpage} setCurrentPage={setCurrentPage} currentPage={currentPage} />
+              </div>
+            )}
           </div>
         </div>
       </div>
     </FilterContext.Provider>
   );
+  
 }
 
 export default Models;
