@@ -128,7 +128,7 @@ function Models() {
             {loading ? (
               <div className='w-full h-full flex items-center justify-center mt-32'>
                 <div className='w-[180px] h-[180px] bg-white shadow-lg flex items-center justify-center'>
-                  <img src={loadingSpinner} alt="Loading" width={80}  className='p-5'/>
+                  <img src={loadingSpinner} alt="Loading" width={80} className='p-5' />
                 </div>
               </div>
             ) : (
@@ -137,7 +137,7 @@ function Models() {
                 <ModelCard
                   key={index}
                   modelMetre={car.kilometers}
-                  modelImg={`https://meta-car-admin-backend.onrender.com/${car.image}`}
+                  modelImg={car.image}
                   modelName={car.title}
                   modelComp={car.brand}
                   modelTrans={car.type}
@@ -158,7 +158,7 @@ function Models() {
       </div>
     </FilterContext.Provider>
   );
-  
+
 }
 
 export default Models;
